@@ -6,20 +6,26 @@ class Stack(object):
         self.stack.append(item)
 
     def pop(self):
-        self.stack.pop()
+        return self.stack.pop()
 
     def __str__(self):
         return str(self.stack) + ' <-Enter'
 
-stack = Stack()
-print(stack)
-stack.push(2)
-print(stack)
-stack.push(3)
-print(stack)
-stack.pop()
-print(stack)
-stack.push(4)
-print(stack)
-stack.push(5)
-print(stack)
+    def __bool__(self):
+        if self.stack:
+            return True
+        else:
+            return False
+            
+# stack = Stack()
+# print(stack)
+# stack.push(2)
+# print(stack)
+# stack.push(3)
+# print(stack)
+# stack.pop()
+# print(stack)
+# stack.push(4)
+# print(stack)
+# stack.push(5)
+# print(stack)
