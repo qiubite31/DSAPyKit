@@ -27,25 +27,36 @@ class SinglyLinkedList(object):
             self.tail.next = self._append_item(new_item)
             self.tail = self.tail.next
 
-    def insert_after(self, tg_node, new_item, loc='after'):
-        if not self.head:
-            return None
-
+    def _search(self, tg_node):
         node = self.head
         pre_node = None
         while not tg_node == node:
             pre_node = node
             node = node.next
         else:
-            new_node = self._append_item(new_item)
-            if loc == 'after':
-                new_node.next = node.next
-                node.next = new_node
-            elif loc == 'before':
-                pre_node.next = new_node
-                new_node.next = node
-            else:
-                return None
+            return (pre_node, node)
+
+    def insert(self, tg_node, new_item, loc='after'):
+        if not self.head:
+            return None
+
+        pre_node, node = self._search(tg_node)
+        new_node = self._append_item(new_item)
+        if loc == 'after':
+            new_node.next = node.next
+            node.next = new_node
+        elif loc == 'before':
+            pre_node.next = new_node
+            new_node.next = node
+        else:
+            return None
+
+    def delete(self, tg_node):
+        if not self.head:
+            return None
+
+        pre_node, node = self._search(tg_node)
+        pre_node.next = node.next
 
     def _append(self, new_node):
         if not self.head:
@@ -67,10 +78,11 @@ class SinglyLinkedList(object):
         return str(items)
 
 
-# node = LinkedNode(3)
-# singlylist = SinglyLinkedList()
-# singlylist.append(node)
-# singlylist.append(LinkedNode(4))
-# singlylist.append(5)
-# singlylist.insert_after(LinkedNode(4), 7, loc='before')
-# print(singlylist)
+node = LinkedNode(3)
+singlylist = SinglyLinkedList()
+singlylist.append(node)
+singlylist.append(LinkedNode(4))
+singlylist.append(5)
+singlylist.insert(LinkedNode(4), 7, loc='before')
+singlylist.delete(LinkedNode(4))
+print(singlylist)
