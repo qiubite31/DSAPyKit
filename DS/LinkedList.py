@@ -4,6 +4,9 @@ class LinkedNode(object):
         self.val = val
         self.next = None
 
+    def __eq__(self, that):
+        if self.val == that.val:
+            return True
 
 class SinglyLinkedList(object):
     def __init__(self):
@@ -23,6 +26,26 @@ class SinglyLinkedList(object):
         else:
             self.tail.next = self._append_item(new_item)
             self.tail = self.tail.next
+
+    def insert_after(self, tg_node, new_item, loc='after'):
+        if not self.head:
+            return None
+
+        node = self.head
+        pre_node = None
+        while not tg_node == node:
+            pre_node = node
+            node = node.next
+        else:
+            new_node = self._append_item(new_item)
+            if loc == 'after':
+                new_node.next = node.next
+                node.next = new_node
+            elif loc == 'before':
+                pre_node.next = new_node
+                new_node.next = node
+            else:
+                return None
 
     def _append(self, new_node):
         if not self.head:
@@ -44,9 +67,10 @@ class SinglyLinkedList(object):
         return str(items)
 
 
-node = LinkedNode(3)
-singlylist = SinglyLinkedList()
-singlylist.append(node)
-singlylist.append(LinkedNode(4))
-singlylist.append(5)
-print(singlylist)
+# node = LinkedNode(3)
+# singlylist = SinglyLinkedList()
+# singlylist.append(node)
+# singlylist.append(LinkedNode(4))
+# singlylist.append(5)
+# singlylist.insert_after(LinkedNode(4), 7, loc='before')
+# print(singlylist)
