@@ -34,11 +34,11 @@ class SinglyLinkedList(object):
         else:
             return (pre_node, node)
 
-    def insert(self, tg_node, new_item, loc='after'):
+    def insert(self, new_item=None, tg_item=None, idx=-1, loc='after'):
         if not self.head:
             return None
 
-        pre_node, node = self._find(tg_node)
+        pre_node, node = self._find(tg_item)
         new_node = self._append_item(new_item)
         if loc == 'after':
             new_node.next = node.next
@@ -49,11 +49,11 @@ class SinglyLinkedList(object):
         else:
             return None
 
-    def delete(self, tg_node):
+    def delete(self, tg_item):
         if not self.head:
             return None
 
-        pre_node, node = self._find(tg_node)
+        pre_node, node = self._find(tg_item)
         pre_node.next = node.next
 
     def _append(self, new_node):
@@ -82,6 +82,7 @@ if __name__ == '__main__':
     singlylist.append(item)
     singlylist.append(4)
     singlylist.append(5)
-    singlylist.insert(4, 7, loc='before')
+    singlylist.insert(new_item=7, tg_item=4, loc='before')
     singlylist.delete(4)
+    # singlylist.insert()
     print(singlylist)
