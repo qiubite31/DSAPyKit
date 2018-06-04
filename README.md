@@ -1,1 +1,1 @@
-A simple Data Structure and Algorithms toolkit
+A simple Data Structure and Algorithms implementation
