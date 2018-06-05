@@ -81,13 +81,24 @@ class SinglyLinkedList(object):
         size = 1
         if not self.head:
             return 0
-        else:
-            node = self.head
-            while node.next:
-                node = node.next
-                size += 1
 
-            return size
+        node = self.head
+        while node.next:
+            node = node.next
+            size += 1
+        return size
+
+    def reverse(self):
+        prev_node = None
+        curr_node = self.head
+
+        while curr_node:
+            next_node = curr_node.next
+            curr_node.next = prev_node
+            prev_node = curr_node
+            curr_node = next_node
+
+        self.head = prev_node
 
     def __str__(self):
         items = []
@@ -111,5 +122,7 @@ if __name__ == '__main__':
     singlylist.delete(idx=0)
     singlylist.delete(3)
     print(singlylist.size())
-    # singlylist.delete(idx=10)
+    singlylist.delete(idx=10)
+    print(singlylist)
+    singlylist.reverse()
     print(singlylist)
