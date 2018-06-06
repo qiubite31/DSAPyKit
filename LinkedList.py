@@ -8,6 +8,9 @@ class LinkedNode(object):
         if self.val == that.val:
             return True
 
+    def __str__(self):
+        return str(self.val)
+
 
 class SinglyLinkedList(object):
     def __init__(self):
@@ -54,6 +57,9 @@ class SinglyLinkedList(object):
         if loc == 'after':
             new_node.next = node.next
             node.next = new_node
+
+            self.tail = new_node if new_node.next is None else self.tail
+
         elif loc == 'before':
             if pre_node:
                 pre_node.next = new_node
@@ -74,6 +80,8 @@ class SinglyLinkedList(object):
         pre_node, node = self._find(tg_item, idx)
         if pre_node:
             pre_node.next = node.next
+            # 如果是最後一個結果，更新tail
+            self.tail = pre_node if node.next is None else self.tail
         else:
             self.head = node.next
 
@@ -98,6 +106,7 @@ class SinglyLinkedList(object):
             prev_node = curr_node
             curr_node = next_node
 
+        self.tail = self.head
         self.head = prev_node
 
     def __str__(self):
@@ -120,8 +129,9 @@ if __name__ == '__main__':
     singlylist.delete(4)
     singlylist.insert(new_item=8, idx=0, loc="before")
     singlylist.delete(idx=0)
-    singlylist.delete(3)
-    print(singlylist.size())
+    singlylist.delete(5)
+    singlylist.insert(new_item=6, tg_item=7, loc='after')
+    singlylist.insert(new_item=9, idx=2, loc='after')
     singlylist.delete(idx=10)
     print(singlylist)
     singlylist.reverse()
