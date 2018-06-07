@@ -28,13 +28,16 @@ class SinglyLinkedList(object):
             self.tail.next = self._append_item(new_item)
             self.tail = self.tail.next
 
-    def _find(self, tg_node, idx):
+    def _find_item(self, tg_node, idx=-1):
         node = self.head
         pre_node = None
         if tg_node:
-            while not tg_node == node.val:
-                pre_node = node
-                node = node.next
+            while node is not None:
+                if tg_node == node.val:
+                    return (pre_node, node)
+                else:
+                    pre_node = node
+                    node = node.next
             else:
                 return (pre_node, node)
         else:
@@ -48,11 +51,21 @@ class SinglyLinkedList(object):
             else:
                 return (pre_node, node)
 
+    def exist(self, tg_item):
+        if not self.head:
+            return False
+
+        pre_node, node = self._find_item(tg_item)
+        if node is None:
+            return False
+        else:
+            return True
+
     def insert(self, new_item=None, tg_item=None, idx=-1, loc='after'):
         if not self.head:
             return None
 
-        pre_node, node = self._find(tg_item, idx)
+        pre_node, node = self._find_item(tg_item, idx)
         new_node = self._append_item(new_item)
         if loc == 'after':
             new_node.next = node.next
@@ -77,7 +90,7 @@ class SinglyLinkedList(object):
         if self.size() < idx + 1 and not idx == -1:
             return None
 
-        pre_node, node = self._find(tg_item, idx)
+        pre_node, node = self._find_item(tg_item, idx)
         if pre_node:
             pre_node.next = node.next
             # 如果是最後一個結果，更新tail
@@ -136,3 +149,5 @@ if __name__ == '__main__':
     print(singlylist)
     singlylist.reverse()
     print(singlylist)
+    print(singlylist.exist(6))
+    print(singlylist.exist(5))
